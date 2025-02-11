@@ -4,11 +4,12 @@
     bottom: 0;
     width: 75vw;
     max-width: 1000px;
-    height: 90px;
+    height: 130px;
     background-color: #000000;
     color: white;
     text-align: center;
-    padding: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
     font-size: 10px;
     box-shadow: 0 5px 15px rgba(3, 1, 90, 0.3);
   }
@@ -20,7 +21,7 @@
     align-items: center;
     flex-wrap: wrap;
     max-width: 900px;
-    margin: auto;
+    /* margin: auto; */
   }
   
   .school-info {

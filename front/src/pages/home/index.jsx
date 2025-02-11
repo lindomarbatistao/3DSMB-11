@@ -1,18 +1,18 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import './styles.css'
-import {FaEdit, FaTrash, FaPlus, FaSearch} from 'react-icons/fa'
+import { FaEdit, FaTrash, FaPlus, FaSearch } from 'react-icons/fa'
 
-export default function Home(){
+export default function Home() {
     const [dados, setDados] = useState([])
     const token = localStorage.getItem('token')
-    
+
     console.log("Token Home: ", token)
 
-    useEffect(()=>{
+    useEffect(() => {
         if (!token) return;
 
-        const fetchData = async ()=>{
+        const fetchData = async () => {
             try {
                 const response = await axios.get('http://127.0.0.1:8000/api/professores',
                     {
@@ -25,41 +25,67 @@ export default function Home(){
                 setDados(response.data)
 
             } catch (error) {
-                
+
             }
         }
         fetchData()
     }, [])
 
 
-    return(
-        <div className="container_home">
-            <h1>Home</h1>
-            <div className="body">
-                <h2>Lista de professores</h2>
-                {dados.map((professor)=>(
-                    <div className="lista">
-                        <FaEdit className="edit" />
-                        <FaTrash className="delete"/>
-                        <span className="id">{professor.id}</span>
-                        <span className="ni">{professor.ni}</span>
-                        <span className="nome">{professor.nome}</span>
-                    </div>
-                ))
+    return (
+        <main>
+            <div className="container_home">
+                <h1>Home</h1>
+                <div className="table">
+                    <h2>Lista de professores</h2>
+                    {dados.map((professor) => (
+                        <div className="lista">
+                            <div className="col1">
+                                <FaEdit className="edit" />
+                            </div>
+                            <div className="col2">
+                                <FaTrash className="delete" />
+                            </div>
+                            <div className="col3">
+                                <span className="id">{professor.id}</span>
+                            </div>
+                            <div className="col4">
+                                <span className="ni">{professor.ni}</span>
+                            </div>
+                            <div className="col5">
+                                <span className="nome">{professor.nome}</span>
+                            </div>
+                            <div className="col6">
+                                <span className="email">{professor.email}</span>
+                            </div>
+                            <div className="col7">
+                                <span className="cel">{professor.cel}</span>
+                            </div>
+                            <div className="col8">
+                                <span className="ocup">{professor.ocup}</span>
+                            </div>
 
-                }
+
+
+
+
+                        </div>
+                    ))
+
+                    }
+                </div>
+                <div className="footer_table">
+                    <div className="btn1">
+                        <FaPlus className="adicionar" />
+                    </div>
+                    <div className="pesquisar">
+                        <input placeholder="ID" />
+                    </div>
+                    <div className="btn2">
+                        <FaSearch className="procurar" />
+                    </div>
+                </div>
             </div>
-            <div className="footer">
-                <div className="btn1">
-                    <FaPlus className="adicionar"/>
-                </div>
-                <div className="pesquisar">
-                    <input placeholder="ID"/>
-                </div>
-                <div className="btn2">
-                    <FaSearch className="procurar"/>
-                </div>
-            </div>
-        </div>
+        </main>
     )
 }

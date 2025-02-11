@@ -4,7 +4,7 @@ import '../head/styles.css'
 export default function Head(){
     return(
         <main>
-            <section className="section">
+            <section className="section_head">
                 <div className="title">
                     <h2>Professores</h2>
                 </div>

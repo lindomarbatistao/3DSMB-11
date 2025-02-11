@@ -33,7 +33,7 @@ export default function Login() {
     return (
         <main>
             <div className="container_login">
-                <section className="section">
+                <section className="section_login">
                     <FiUser className="user" />
 
                     <p>Usuário:</p>

@@ -78,3 +78,41 @@
 .pesquisar input{
     border-color: antiquewhite;
 }
+
+.col1{
+    background-color: rgb(245, 245, 245);
+    width: 20px;    
+}
+.col2{
+    background-color: rgb(227, 227, 227);
+    width: 20px;    
+}
+.col3{
+    background-color: rgb(245, 245, 245);
+    width: 40px;
+}
+.col4{
+    background-color: rgb(227, 227, 227);
+    width: 100px;    
+}
+.col5{
+    background-color: rgb(245, 245, 245);
+    width: 150px;    
+}
+.col6{
+    background-color: rgb(227, 227, 227);
+    width: 150px;    
+}
+.col7{
+    background-color: rgb(245, 245, 245);
+    width: 100px;    
+}
+.col8{
+    background-color: rgb(227, 227, 227);
+    width: 20px;    
+}
+
+.lista{
+    display: flex;
+    flex-direction: row;
+}

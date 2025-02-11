@@ -35,7 +35,6 @@ export default function Home() {
     return (
         <main>
             <div className="container_home">
-                <h1>Home</h1>
                 <div className="table">
                     <h2>Lista de professores</h2>
                     {dados.map((professor) => (
@@ -64,11 +63,6 @@ export default function Home() {
                             <div className="col8">
                                 <span className="ocup">{professor.ocup}</span>
                             </div>
-
-
-
-
-
                         </div>
                     ))
 

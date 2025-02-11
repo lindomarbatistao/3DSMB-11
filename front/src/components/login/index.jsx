@@ -1,14 +1,15 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import './styles.css'
 import axios from 'axios'
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import { FiUser } from 'react-icons/fi'
 
-export default function Login(){
+export default function Login() {
     const [user, setUser] = useState('')
     const [password, setPassword] = useState('')
     const navigate = useNavigate()
 
-    const logar = async ()=>{
+    const logar = async () => {
         console.log("Usuário: ", user)
         console.log("Senha: ", password)
 
@@ -25,32 +26,38 @@ export default function Login(){
         } catch (error) {
             console.error(error)
         }
-        
+
 
     }
-    
-    return(
-        <div className="container_login">
-            <h1>Login</h1>
-            <input
-                className="caixa"
-                placeholder="User"    
-                type="text"
-                value={user}
-                onChange={(e)=>{setUser(e.target.value)}}
-            />
 
-            <input
-                className="caixa"
-                placeholder="Password"
-                type="password"
-                value={password}
-                onChange={(e)=>{setPassword(e.target.value)}}
-            />
+    return (
+        <main>
+            <div className="container_login">
+                <section className="section">
+                    <FiUser className="user" />
 
-            <button className="btn" onClick={logar}>
-                Enter
-            </button>
-        </div>
+                    <p>Usuário:</p>
+                    <input
+                        className="caixa"
+                        placeholder="User"
+                        type="text"
+                        value={user}
+                        onChange={(e) => { setUser(e.target.value) }}
+                    />
+                    <p>Senha:</p>
+                    <input
+                        className="caixa"
+                        placeholder="Password"
+                        type="password"
+                        value={password}
+                        onChange={(e) => { setPassword(e.target.value) }}
+                    />
+
+                    <button className="btn" onClick={logar}>
+                        Enter
+                    </button>
+                </section>
+            </div>
+        </main>
     )
 }

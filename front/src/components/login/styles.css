@@ -8,11 +8,34 @@
 }
 
 .caixa{
-    margin-top: 10px;
+    margin-top: 0px;
+    padding: 5px;
+    border-radius: 5px;
 }
 
 .btn{
-    margin-top: 10px;
+    margin-top: 20px;
     color: white;
     background-color: black;
+    width: 100px;
+    height: 40px;
+}
+
+.section{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vw;
+    flex-direction: column;
+}
+
+.user{
+    width: 100px;
+    height: 100px;
+}
+
+p{
+    margin-bottom: 0;
+    width: 170px;
 }

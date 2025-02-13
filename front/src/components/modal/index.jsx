@@ -14,11 +14,38 @@ const ModalProfessores = ({
 
     const [id, setId] = useState(professorSelecionado?.id || "")
     const [ni, setNi] = useState(professorSelecionado?.ni || "")
-    const [nome, setnome] = useState(professorSelecionado?.nome || "")
+    const [nome, setNome] = useState(professorSelecionado?.nome || "")
     const [email, setEmail] = useState(professorSelecionado?.email || "")
     const [cel, setCel] = useState(professorSelecionado?.cel || "")
     const [ocup, setOcup] = useState(professorSelecionado?.ocup || "")
 
+    useEffect(()=>{
+        if(professorSelecionado){
+            setId(professorSelecionado.id)
+            setNi(professorSelecionado.ni || '')
+            setNome(professorSelecionado.nome || '')
+            setEmail(professorSelecionado.email || '')
+            setCel(professorSelecionado.cel || '')
+            setOcup(professorSelecionado.ocup || '')
+        }else{
+            setId('')
+            setNi('')
+            setNome('')
+            setEmail('')
+            setCel('')
+            setOcup('')
+        }
+    }, [])
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        const novoProfessor = {ni, nome, email, cel, ocup}
+        if(professorSelecionado){
+            atualizar({...professorSelecionado})
+        }else{
+            criar(novoProfessor)
+        }
+    }
 
     return(
         <main>
@@ -28,7 +55,11 @@ const ModalProfessores = ({
                     <h2>{professorSelecionado ? "Editar": "Cadastrar"}</h2>
                     <div className="form_modal">
                         <div className="caixa">
-                            <form>
+                            <form onSubmit={handleSubmit}>
+                                <input
+                                    className=""
+                                    
+                                />
                                 
                             </form>
                         </div>

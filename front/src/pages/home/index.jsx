@@ -2,12 +2,16 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import './styles.css'
 import { FaEdit, FaTrash, FaPlus, FaSearch } from 'react-icons/fa'
+import ModalProfessores from "../../components/modal";
 
 export default function Home() {
     const [dados, setDados] = useState([])
     const token = localStorage.getItem('token')
+    const [modalOpen, setModalOpen] = useState(false)
+    const [professorSelecionado, setProfessorSelecionado] = useState(null)
+    const [setar, setSetar] = useState(false)
 
-    console.log("Token Home: ", token)
+    // console.log("Token Home: ", token)
 
     useEffect(() => {
         if (!token) return;
@@ -29,8 +33,43 @@ export default function Home() {
             }
         }
         fetchData()
-    }, [])
+    }, [setar])
 
+    const editar = (professor) => {
+        console.log(professor)
+        setProfessorSelecionado(professor)
+        setModalOpen(true)
+    }
+
+    const criar = async (novoProfessor)=>{
+        try {
+            const response = await axios.post('http://127.0.0.1:8000/api/professores',
+                {
+                    ni: novoProfessor.ni,
+                    nome: novoProfessor.nome,
+                    email: novoProfessor.email,
+                    cel: novoProfessor.cel,
+                    ocup: novoProfessor.ocup
+                },
+                {
+                    headers:{
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+            )
+            console.log("Dados inseridos com sucesso!", response.data)
+            setDados([...dados, novoProfessor])
+            setModalOpen(false)
+            setSetar(!setar)
+        } catch (error) {
+            console.error(error)
+        }
+
+    }
+
+    const atualizar =()=>{
+
+    }
 
     return (
         <main>
@@ -40,7 +79,7 @@ export default function Home() {
                     {dados.map((professor) => (
                         <div className="lista">
                             <div className="col1">
-                                <FaEdit className="edit" />
+                                <FaEdit className="edit" onClick={()=> editar(professor)}/>
                             </div>
                             <div className="col2">
                                 <FaTrash className="delete" />
@@ -70,7 +109,13 @@ export default function Home() {
                 </div>
                 <div className="footer_table">
                     <div className="btn1">
-                        <FaPlus className="adicionar" />
+                        <FaPlus 
+                            className="adicionar" 
+                            onClick={()=>{
+                                setProfessorSelecionado(null),
+                                setModalOpen(true)
+                            }}
+                        />
                     </div>
                     <div className="pesquisar">
                         <input placeholder="ID" />
@@ -80,6 +125,14 @@ export default function Home() {
                     </div>
                 </div>
             </div>
+            <ModalProfessores
+                isOpen={modalOpen}
+                onClose={()=>modalOpen(false)}
+                professorSelecionado={professorSelecionado}
+                setProfessorSelecionado={setProfessorSelecionado}
+                criar={criar}
+                atualizar={atualizar}
+            />
         </main>
     )
 }

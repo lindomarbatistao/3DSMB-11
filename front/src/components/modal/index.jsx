@@ -57,11 +57,43 @@ const ModalProfessores = ({
                         <div className="caixa">
                             <form onSubmit={handleSubmit}>
                                 <input
-                                    className=""
-                                    
+                                    className="ni_modal"
+                                    placeholder="NI"
+                                    type="text"
+                                    value={ni}  
+                                    onChange={(e)=>setNi(e.target.value)}  
                                 />
-                                
+                                <input
+                                    className="nome_modal"
+                                    placeholder="Nome"
+                                    type="text"
+                                    value={nome}  
+                                    onChange={(e)=>setNome(e.target.value)}  
+                                />
+                                <input
+                                    className="email_modal"
+                                    placeholder="email"
+                                    type="text"
+                                    value={email}  
+                                    onChange={(e)=>setEmail(e.target.value)}  
+                                />
+                                <input
+                                    className="cel_modal"
+                                    placeholder="Celular"
+                                    type="text"
+                                    value={cel}  
+                                    onChange={(e)=>setCel(e.target.value)}  
+                                />
+                                <input
+                                    className="ocup_modal"
+                                    placeholder="Ocupação"
+                                    type="text"
+                                    value={ocup}  
+                                    onChange={(e)=>setOcup(e.target.value)}  
+                                />
+                                <button type="submit">{professorSelecionado ? "Atualizar": "Salvar"}</button>
                             </form>
+
                         </div>
                     </div>
                 </div>
@@ -70,3 +102,5 @@ const ModalProfessores = ({
     )
 
 }
+
+export default ModalProfessores

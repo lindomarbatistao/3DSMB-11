@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { FaEdit, FaTrash, FaPlus, FaSearch } from 'react-icons/fa'
 import ModalProfessores from "../../components/modal";
+import Head from "../../components/head";
+import Footer from "../../components/footer";
 import axios from "axios";
 import './styles.css'
 
@@ -73,6 +75,7 @@ export default function Teacher() {
 
     return (
         <div className="container_teacher">
+            <Head/>
             <section className="section-teacher">
                 <div className="table-teacher">
                     <h2>Lista de professores</h2>
@@ -134,6 +137,7 @@ export default function Teacher() {
                     atualizar={atualizar}
                 />
             </section>
+            <Footer/>
         </div>
     )
 }

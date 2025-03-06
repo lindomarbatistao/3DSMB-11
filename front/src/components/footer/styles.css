@@ -2,9 +2,9 @@
     border-radius: 5px;
     position: fixed; 
     bottom: 0;
-    width: 100%;
+    width: 100vw;
     max-width: 1000px;
-    height: 130px;
+    height: 90px;
     background-color: #000000;
     color: white;
     left: 50%;
@@ -12,6 +12,7 @@
     text-align: center;
     font-size: 10px;
     box-shadow: 0 5px 15px rgba(3, 1, 90, 0.3);
+    padding: 20px;
   }
 
  
@@ -21,23 +22,25 @@
     align-items: center;
     flex-wrap: wrap;
     max-width: 900px;
-    padding-left: 30px;
+    padding-left: 10px;
   }
   
   .school-info {
     text-align: left;
-    max-width: 400px;
+    width: 100%; /* Usa 100% da largura disponível */
+    max-width: 1000px; /* Ajuste a largura máxima se necessário */
+    
   }
   
   .social-media {
-    padding-right: 30px;
+    padding-right: 10px;
   }
   
   .social-icons {
     display: flex;
     gap: 15px;
     justify-content: center;
-    margin-top: 10px;
+    margin-top: 0px;
   }
   
   .social-icons a {
@@ -68,7 +71,7 @@
   }
   
   .footer-bottom p{
-    margin-top: 10px;
+    margin-top: 0px;
     font-size: 10px;
     width: 100%;
     text-align: center;

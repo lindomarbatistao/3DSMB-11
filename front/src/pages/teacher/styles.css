@@ -1,25 +1,40 @@
 .container_teacher{
+    width: 100vw;
+    height: 100vh;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    width: 80%;
-    max-width: 1000px;
+    border-radius: 5px;
     padding: 20px;
-    height: 450px;
-    background-color: rgb(238, 238, 238);
-    /* left: 50%; */
-    /* transform: translate(-50%); */
     overflow: hidden;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%);
 }
 
-.table-section{
+.section-teacher{
+    width: 80vw;
+    max-width: 1000px;
+    height: 70vh;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    flex-direction: column;
-    width: 100%;
+    border-radius: 5px;
+    padding: 20px;
+    background-color: rgb(242, 246, 207);
     overflow: hidden;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+.table-teacher{
+    width: 75vw;
+    max-width: 700px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
 }
 
 .edit{

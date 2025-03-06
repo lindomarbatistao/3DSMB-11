@@ -11,8 +11,8 @@ export default function Footer() {
                 <section className="school-info">
                     <h3>Escola SENAI Roberto Mange</h3>
                     <p>Formando profissionais para o futuro.</p>
-                    <p><strong>Endereço:</strong> Rua Pastor Cícero Canuto de Lima, 71 - Campinas, SP</p>
-                    <p><strong>Contato:</strong> (19) 3772-1840 | contato@senai.com.br</p>
+                    Endereço: Rua Pastor Cícero Canuto de Lima, 71 - Campinas, SP
+                    <p>Contato:(19) 3772-1840 | contato@senai.com.br</p>
                 </section>
 
                 {/* Redes sociais */}

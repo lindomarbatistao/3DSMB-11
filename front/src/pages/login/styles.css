@@ -4,7 +4,7 @@
     justify-content: center;
     align-items: center;
     width: 50%;
-    background-color: rgb(243, 238, 233);
+    /* background-color: rgb(243, 238, 233); */
     position: absolute;
     left: 50%;
     transform: translate(-50%, -50%);

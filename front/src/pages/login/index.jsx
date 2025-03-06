@@ -31,33 +31,30 @@ export default function Login() {
     }
 
     return (
-        <main>
-            <div className="container_login">
-                <section className="section_login">
-                    <FiUser className="user" />
+        <div className="container_login">
+            <section className="section_login">
+                <FiUser className="user" />
+                <p>Usuário:</p>
+                <input
+                    className="caixa"
+                    placeholder="User"
+                    type="text"
+                    value={user}
+                    onChange={(e) => { setUser(e.target.value) }}
+                />
+                <p>Senha:</p>
+                <input
+                    className="caixa"
+                    placeholder="Password"
+                    type="password"
+                    value={password}
+                    onChange={(e) => { setPassword(e.target.value) }}
+                />
 
-                    <p>Usuário:</p>
-                    <input
-                        className="caixa"
-                        placeholder="User"
-                        type="text"
-                        value={user}
-                        onChange={(e) => { setUser(e.target.value) }}
-                    />
-                    <p>Senha:</p>
-                    <input
-                        className="caixa"
-                        placeholder="Password"
-                        type="password"
-                        value={password}
-                        onChange={(e) => { setPassword(e.target.value) }}
-                    />
-
-                    <button className="btn" onClick={logar}>
-                        Enter
-                    </button>
-                </section>
-            </div>
-        </main>
+                <button className="btn" onClick={logar}>
+                    Enter
+                </button>
+            </section>
+        </div>
     )
 }

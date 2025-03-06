@@ -3,8 +3,12 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 500px;
-    /* background-color: bisque; */
+    width: 50%;
+    background-color: rgb(243, 238, 233);
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 50%;
 }
 
 .caixa{
@@ -28,7 +32,6 @@
     width: 100vw;
     height: 100vw;
     flex-direction: column;
-    background-color: brown;
 }
 
 .user{

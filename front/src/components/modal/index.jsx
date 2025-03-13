@@ -7,6 +7,8 @@ const ModalProfessores = ({
     isOpen,
     onClose,
     professorSelecionado,
+    setSetar,
+    setar
 }) => {
     if (!isOpen) return null
 
@@ -64,6 +66,30 @@ const ModalProfessores = ({
             }
             )
             console.log("Dados inseridos com sucesso...")
+            setSetar(!setar)
+            onClose(false)
+        } catch (error) {
+
+        }
+    }
+
+    const editTeacher = async () => {
+        try {
+            await axios.put(`http://127.0.0.1:8000/api/professor/${professorSelecionado.id}`,
+                {
+                    ni: ni,
+                    nome: nome,
+                    email: email,
+                    cel: cel,
+                    ocup: ocup
+                }, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }
+            )
+            console.log("Dados atualizados com sucesso...")
+            setSetar(!setar)
             onClose(false)
         } catch (error) {
 
@@ -125,7 +151,7 @@ const ModalProfessores = ({
                 <div className="footer_modal">
                     <button
                         type="submit"
-                        onClick={newTeacher}
+                        onClick={professorSelecionado ? editTeacher : newTeacher}
                     >
                         {professorSelecionado ? "Atualizar" : "Salvar"}
                     </button>

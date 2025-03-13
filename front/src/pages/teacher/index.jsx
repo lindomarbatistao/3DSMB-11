@@ -44,6 +44,7 @@ export default function Teacher() {
     }
 
     const criar = async (novoProfessor) => {
+
         try {
             const response = await axios.post('http://127.0.0.1:8000/api/professores',
                 {
@@ -69,13 +70,27 @@ export default function Teacher() {
 
     }
 
-    const atualizar = () => {
-
+    const deleteTeacher = async (professor) => {
+        if (window.confirm("Tem certeza?")) {
+            try {
+                await axios.delete(`http://127.0.0.1:8000/api/professor/${professor.id}`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        }
+                    }
+                )
+                console.log("Dados apagados com sucesso...")
+                setSetar(!setar)
+            } catch (error) {
+                console.error(error)
+            }
+        }
     }
 
     return (
         <div className="container_teacher">
-            <Head/>
+            <Head />
             <section className="section-teacher">
                 <div className="table-teacher">
                     <h2>Lista de professores</h2>
@@ -85,7 +100,7 @@ export default function Teacher() {
                                 <FaEdit className="edit" onClick={() => editar(professor)} />
                             </div>
                             <div className="col2">
-                                <FaTrash className="delete" />
+                                <FaTrash className="delete" onClick={() => deleteTeacher(professor)} />
                             </div>
                             <div className="col3">
                                 <span className="id">{professor.id}</span>
@@ -132,13 +147,11 @@ export default function Teacher() {
                     isOpen={modalOpen}
                     onClose={() => setModalOpen(false)}
                     professorSelecionado={professorSelecionado}
-                    setProfessorSelecionado={setProfessorSelecionado}
-                    criar={criar}
-                    atualizar={atualizar}
-
+                    setSetar={setSetar}
+                    setar={setar}
                 />
             </section>
-            <Footer/>
+            <Footer />
         </div>
     )
 }

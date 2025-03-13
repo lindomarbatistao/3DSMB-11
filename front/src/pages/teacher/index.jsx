@@ -130,7 +130,7 @@ export default function Teacher() {
 
                 <ModalProfessores
                     isOpen={modalOpen}
-                    onClose={() => modalOpen(false)}
+                    onClose={() => setModalOpen(false)}
                     professorSelecionado={professorSelecionado}
                     setProfessorSelecionado={setProfessorSelecionado}
                     criar={criar}

@@ -5,8 +5,6 @@ const ModalProfessores = ({
     isOpen,
     onClose,
     professorSelecionado,
-    criar,
-    atualizar
 }) => {
     if (!isOpen) return null
 
@@ -48,61 +46,62 @@ const ModalProfessores = ({
     }
 
     return (
-        <main>
+        <div className="container_container">
+
             <div className="container_modal">
                 <div className="head_modal">
-                    <button className="close_button">X</button>
+                    <button className="close_button" onClick={onClose}>X</button>
                 </div>
                 <div className="body_modal">
-                    <h2>{professorSelecionado ? "Editar" : "Cadastrar"}</h2>
-                        <div className="caixa1">
-                            <form onSubmit={handleSubmit}>
-                                <input
-                                    className="ni_modal"
-                                    placeholder="NI"
-                                    type="text"
-                                    value={ni}
-                                    onChange={(e) => setNi(e.target.value)}
-                                />
-                                <input
-                                    className="nome_modal"
-                                    placeholder="Nome"
-                                    type="text"
-                                    value={nome}
-                                    onChange={(e) => setNome(e.target.value)}
-                                />
-                                <input
-                                    className="email_modal"
-                                    placeholder="email"
-                                    type="text"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                />
-                                <input
-                                    className="cel_modal"
-                                    placeholder="Celular"
-                                    type="text"
-                                    value={cel}
-                                    onChange={(e) => setCel(e.target.value)}
-                                />
-                                <input
-                                    className="ocup_modal"
-                                    placeholder="Ocupação"
-                                    type="text"
-                                    value={ocup}
-                                    onChange={(e) => setOcup(e.target.value)}
-                                />
-                            </form>
-                        </div>
-                        <div className="caixa2">
-                            <h5>XXXX</h5>
-                        </div>
+                    <div className="caixa1">
+                        <h2>{professorSelecionado ? "Editar" : "Cadastrar"}</h2>
+                        <form onSubmit={handleSubmit}>
+                            <input
+                                className="ni_modal"
+                                placeholder="NI"
+                                type="text"
+                                value={ni}
+                                onChange={(e) => setNi(e.target.value)}
+                            />
+                            <input
+                                className="nome_modal"
+                                placeholder="Nome"
+                                type="text"
+                                value={nome}
+                                onChange={(e) => setNome(e.target.value)}
+                            />
+                            <input
+                                className="email_modal"
+                                placeholder="email"
+                                type="text"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
+                            <input
+                                className="cel_modal"
+                                placeholder="Celular"
+                                type="text"
+                                value={cel}
+                                onChange={(e) => setCel(e.target.value)}
+                            />
+                            <input
+                                className="ocup_modal"
+                                placeholder="Ocupação"
+                                type="text"
+                                value={ocup}
+                                onChange={(e) => setOcup(e.target.value)}
+                            />
+                        </form>
+                    </div>
+                    <div className="caixa2">
+                        <h1>Foto</h1>
+                    </div>
                 </div>
                 <div className="footer_modal">
                     <button type="submit">{professorSelecionado ? "Atualizar" : "Salvar"}</button>
                 </div>
             </div>
-        </main>
+        </div>
     )
 
 }

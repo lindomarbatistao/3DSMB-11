@@ -18,6 +18,7 @@ const ModalProfessores = ({
     const [email, setEmail] = useState(professorSelecionado?.email || "")
     const [cel, setCel] = useState(professorSelecionado?.cel || "")
     const [ocup, setOcup] = useState(professorSelecionado?.ocup || "")
+    const token = localStorage.getItem('token')
 
     useEffect(() => {
         if (professorSelecionado) {
@@ -47,7 +48,7 @@ const ModalProfessores = ({
         }
     }
 
-    const newTeacher = async()=>{
+    const newTeacher = async () => {
         try {
             await axios.post('http://127.0.0.1:8000/api/professores',
                 {
@@ -56,14 +57,16 @@ const ModalProfessores = ({
                     email: email,
                     cel: cel,
                     ocup: ocup
-                },{
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
+                }, {
+                headers: {
+                    Authorization: `Bearer ${token}`
                 }
+            }
             )
+            console.log("Dados inseridos com sucesso...")
+            onClose(false)
         } catch (error) {
-            
+
         }
     }
 
@@ -120,7 +123,12 @@ const ModalProfessores = ({
                     </div>
                 </div>
                 <div className="footer_modal">
-                    <button type="submit">{professorSelecionado ? "Atualizar" : "Salvar"}</button>
+                    <button
+                        type="submit"
+                        onClick={newTeacher}
+                    >
+                        {professorSelecionado ? "Atualizar" : "Salvar"}
+                    </button>
                 </div>
             </div>
         </div>

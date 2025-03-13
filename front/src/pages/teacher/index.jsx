@@ -135,6 +135,7 @@ export default function Teacher() {
                     setProfessorSelecionado={setProfessorSelecionado}
                     criar={criar}
                     atualizar={atualizar}
+
                 />
             </section>
             <Footer/>

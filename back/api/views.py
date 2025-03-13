@@ -12,7 +12,6 @@ from rest_framework.permissions import IsAuthenticated
 def listar_professores(request):
     if request.method == 'GET':
         queryset = Professor.objects.all()
-        print(queryset)
         serializer = ProfessorSerializer(queryset, many=True)
         return Response(serializer.data)
     elif request.method == 'POST':

@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from .models import Professor
-from .serializers import ProfessorSerializer
+from .models import Professor, Subjects
+from .serializers import ProfessorSerializer, SubjectSerializer
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework import status
@@ -30,6 +30,17 @@ class ProfessoresView(ListCreateAPIView):
 class ProfessoresDetailView(RetrieveUpdateDestroyAPIView):
     queryset = Professor.objects.all()
     serializer_class = ProfessorSerializer
+    permission_classes = [IsAuthenticated]
+
+
+class SubjectsView(ListCreateAPIView):
+    queryset = Subjects.objects.all()
+    serializer_class = SubjectSerializer
+    permission_classes = [IsAuthenticated]
+
+class SubjectsDetailView(RetrieveUpdateDestroyAPIView):
+    queryset = Subjects.objects.all()
+    serializer_class = SubjectSerializer
     permission_classes = [IsAuthenticated]
 
 

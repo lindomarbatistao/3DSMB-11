@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { FaEdit, FaTrash, FaPlus, FaSearch } from 'react-icons/fa'
-import ModalProfessores from "../../components/modal";
+import ModalProfessores from "../../components/modals/teacher";
 import Head from "../../components/head";
 import Footer from "../../components/footer";
 import axios from "axios";
@@ -12,8 +12,6 @@ export default function Teacher() {
     const [modalOpen, setModalOpen] = useState(false)
     const [professorSelecionado, setProfessorSelecionado] = useState(null)
     const [setar, setSetar] = useState(false)
-
-    // console.log("Token Home: ", token)
 
     useEffect(() => {
         if (!token) return;

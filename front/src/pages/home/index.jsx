@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from "react";
+import { FaEdit, FaTrash, FaPlus, FaSearch } from 'react-icons/fa'
+import ModalProfessores from "../../components/modals/teacher";
 import axios from "axios";
 import './styles.css'
-import { FaEdit, FaTrash, FaPlus, FaSearch } from 'react-icons/fa'
-import ModalProfessores from "../../components/modal";
 
 export default function Home() {
     const [dados, setDados] = useState([])
-    const token = localStorage.getItem('token')
     const [modalOpen, setModalOpen] = useState(false)
     const [professorSelecionado, setProfessorSelecionado] = useState(null)
     const [setar, setSetar] = useState(false)
-
-    // console.log("Token Home: ", token)
+    const token = localStorage.getItem('token')
 
     useEffect(() => {
         if (!token) return;

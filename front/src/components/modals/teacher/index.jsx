@@ -48,7 +48,7 @@ const ModalProfessores = ({
         }
     }, [professorSelecionado])
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
 
         if(!ni || !nome || !email || !cel || !ocup || !(fotoRef.current instanceof File)){
@@ -57,6 +57,34 @@ const ModalProfessores = ({
         }
 
         const fileExtension = fotoRef.current.name.split(".").pop()
+        const newNameFile = `${ni}_${nome.split(" ")[0]}.${fileExtension}}`
+        const nameFile = new File([fotoRef.current], newNameFile, {type: fotoRef.current.type})
+
+        const formData = new FormData()
+        formData.append("ni", ni)
+        formData.append("nome", nome)
+        formData.append("email", email)
+        formData.append("cel", cel)
+        formData.append("ocup", ocup)
+        formData.append("foto", nameFile)
+
+        try {
+            await axios.post('http://127.0.0.1:8000/api/professores',
+                formData,
+                {
+                    headers:{
+                        Authorization: `Bearer ${token}`,
+                        "Content-Type": "multipart/form-data"
+                    }
+                }
+            )
+            setMessage("Dados enviados com sucesso!")
+            console.log("Dados enviados com sucesso!");
+            setPreview(null)
+            onClose(true)
+        } catch (error) {
+            console.log("Erro ao enviar os dados: ", error);
+        }
         
 
     }

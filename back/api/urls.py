@@ -17,6 +17,7 @@ urlpatterns = [
     path('subjects', SubjectsView.as_view()),
     path('subject/<int:pk>', SubjectsDetailView.as_view()),
     path('logout', logout_view, name='logout'),
+    path('delete_file/<str:filename>', delete_file)
 ]
 
 if settings.DEBUG:

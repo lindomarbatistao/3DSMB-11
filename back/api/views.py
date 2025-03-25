@@ -8,6 +8,8 @@ from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIV
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth import logout
 from django.shortcuts import redirect
+from django.conf import settings
+import os
 
 @api_view(['GET', 'POST'])
 @permission_classes([IsAuthenticated])
@@ -48,4 +50,13 @@ def logout_view(request):
     logout(request)
     return redirect('login') 
 
+@api_view(['Delete'])
+@permission_classes([IsAuthenticated])
+def delete_file(filename):
+    file_path = os.path.join(settings.MEDIA_ROOT, "fotos", filename)
 
+    if os.path.exists(file_path):
+        os.remove(file_path)
+        return Response({"message":"Arquivo excluído com sucesso!"})
+    else:
+        return Response({"message":"Arquivo não encontrado!"}, status=404)

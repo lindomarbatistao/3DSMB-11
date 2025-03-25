@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import './styles.css'
 import { AwardIcon } from "lucide-react";
 import axios from "axios";
@@ -20,6 +20,10 @@ const ModalProfessores = ({
     const [email, setEmail] = useState(professorSelecionado?.email || "")
     const [cel, setCel] = useState(professorSelecionado?.cel || "")
     const [ocup, setOcup] = useState(professorSelecionado?.ocup || "")
+    const [foto, setFoto] = useState(professorSelecionado?.foto || "")
+    const [preview, setPreview] = useState(null)
+    const [message, setMessage] = useState('')
+    const fotoRef = useRef(null)
     const token = localStorage.getItem('token')
 
     useEffect(() => {
@@ -30,6 +34,9 @@ const ModalProfessores = ({
             setEmail(professorSelecionado.email || '')
             setCel(professorSelecionado.cel || '')
             setOcup(professorSelecionado.ocup || '')
+            setFoto(professorSelecionado.foto || "")
+            // Capturar Foto
+
         } else {
             setId('')
             setNi('')
@@ -37,17 +44,21 @@ const ModalProfessores = ({
             setEmail('')
             setCel('')
             setOcup('')
+            setFoto('')
         }
-    }, [])
+    }, [professorSelecionado])
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        const novoProfessor = { ni, nome, email, cel, ocup }
-        if (professorSelecionado) {
-            atualizar({ ...professorSelecionado })
-        } else {
-            criar(novoProfessor)
+
+        if(!ni || !nome || !email || !cel || !ocup || !(fotoRef.current instanceof File)){
+            setMessage("Preencha todos os campos!")
+            return
         }
+
+        const fileExtension = fotoRef.current.name.split(".").pop()
+        
+
     }
 
     const newTeacher = async () => {

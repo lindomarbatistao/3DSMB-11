@@ -34,7 +34,6 @@ class ProfessoresDetailView(RetrieveUpdateDestroyAPIView):
     serializer_class = ProfessorSerializer
     permission_classes = [IsAuthenticated]
 
-
 class SubjectsView(ListCreateAPIView):
     queryset = Subjects.objects.all()
     serializer_class = SubjectSerializer
@@ -44,7 +43,6 @@ class SubjectsDetailView(RetrieveUpdateDestroyAPIView):
     queryset = Subjects.objects.all()
     serializer_class = SubjectSerializer
     permission_classes = [IsAuthenticated]
-
 
 def logout_view(request):
     logout(request)

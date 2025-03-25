@@ -6,6 +6,8 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework import status
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.permissions import IsAuthenticated
+from django.contrib.auth import logout
+from django.shortcuts import redirect
 
 @api_view(['GET', 'POST'])
 @permission_classes([IsAuthenticated])
@@ -43,5 +45,9 @@ class SubjectsDetailView(RetrieveUpdateDestroyAPIView):
     serializer_class = SubjectSerializer
     permission_classes = [IsAuthenticated]
 
+
+def logout_view(request):
+    logout(request)
+    return redirect('login') 
 
 

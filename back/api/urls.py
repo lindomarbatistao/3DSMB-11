@@ -13,4 +13,5 @@ urlpatterns = [
     path('refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('subjects', SubjectsView.as_view()),
     path('subject/<int:pk>', SubjectsDetailView.as_view()),
+    path('logout', logout_view, name='logout'),
 ]

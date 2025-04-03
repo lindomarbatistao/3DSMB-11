@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import './styles.css'
 import { AwardIcon } from "lucide-react";
 import axios from "axios";
+import useWindowSize from "../../functions/useWindowSize";
 
 const ModalProfessores = ({
     isOpen,
@@ -21,10 +22,12 @@ const ModalProfessores = ({
     const [cel, setCel] = useState(professorSelecionado?.cel || "")
     const [ocup, setOcup] = useState(professorSelecionado?.ocup || "")
     const [foto, setFoto] = useState(professorSelecionado?.foto || "")
+
     const [preview, setPreview] = useState(null)
     const [message, setMessage] = useState('')
     const fotoRef = useRef(null)
     const token = localStorage.getItem('token')
+    const { width, height } = useWindowSize()
 
     useEffect(() => {
         if (professorSelecionado) {
@@ -51,7 +54,7 @@ const ModalProfessores = ({
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        if (!ni || !nome || !email || !cel || !ocup || !(fotoRef.current instanceof File)) {
+        if (!ni || !nome || !email || !cel || !ocup) {
             setMessage("Preencha todos os campos!")
             return
         }
@@ -89,11 +92,11 @@ const ModalProfessores = ({
 
     }
 
-    const deleteFile = async (fileName)=>{
-        if(fotoRef){
-            await axios.delete(`http://127.0.0.1:8000/api/delete_file/${fileName}`, 
+    const deleteFile = async (fileName) => {
+        if (fotoRef) {
+            await axios.delete(`http://127.0.0.1:8000/api/delete_file/${fileName}`,
                 {
-                    headers:{
+                    headers: {
                         Authorization: `Bearer ${token}`
                     }
                 }
@@ -103,8 +106,8 @@ const ModalProfessores = ({
         }
     }
 
-    const handleFileChange = (e)=>{
-        if (professorSelecionado){
+    const handleFileChange = (e) => {
+        if (professorSelecionado) {
             const fileName = professorSelecionado.foto.split("/").pop()
             deleteFile(fileName)
         }
@@ -121,7 +124,7 @@ const ModalProfessores = ({
 
         reader.readAsDataURL(file)
         console.log("Preview XXX: ", file);
-        
+
 
     }
 
@@ -218,36 +221,37 @@ const ModalProfessores = ({
                     </div>
                     <div className="image1">
                         <img
-                            src = {`http://127.0.0.1:8000/api/fotos/${ni}_${nome.split(" ")[0]}.png`}
+                            src={`http://127.0.0.1:8000/api/fotos/${ni}_${nome.split(" ")[0]}.png`}
                         />
                     </div>
-                    <div className="image2">
+                    <div
+                        className="image2"
+                        style={{
+                            top: `${height/2}`,
+                            width: `${width/2}`
+                        }}
+                    >
                         <form onSubmit={handleSubmit}>
-                            {preview && <img src={preview} alt="Preview" className="preview"/>}
-                            <input type="file" accept="image/*" onChange={handleFileChange} className="fileInput"/>
+                            {preview && <img src={preview} alt="Preview" className="preview" />}
+                            <input type="file" accept="image/*" onChange={handleFileChange} className="fileInput" />
 
                             <button
                                 type="submit"
                                 className="button_save"
-                                onClick={(e)=>{
+                                style={{
+                                    top: `${(height+200)/2}px`,
+                                    left: `${(width)/3}px`
+                                }}
+                                onClick={(e) => {
                                     e.preventDefault()
                                     professorSelecionado ? editTeacher(professorSelecionado.id) : handleSubmit(e)
                                 }}
-                            
+
                             >
                                 {professorSelecionado ? "Editar" : "Salvar"}
                             </button>
                         </form>
                     </div>
-                </div>
-
-                <div className="footer_modal">
-                    <button
-                        type="submit"
-                        onClick={professorSelecionado ? editTeacher : newTeacher}
-                    >
-                        {professorSelecionado ? "Atualizar" : "Salvar"}
-                    </button>
                 </div>
             </div>
         </div>

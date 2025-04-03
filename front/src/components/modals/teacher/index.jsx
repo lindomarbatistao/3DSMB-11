@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import useWindowSize from "../../functions/useWindowSize";
 import axios from "axios";
 import './styles.css'
 
@@ -12,7 +11,7 @@ const ModalProfessores = ({
 }) => {
     if (!isOpen) return null
 
-    console.log("Prof Select: ", professorSelecionado)
+
 
     const [id, setId] = useState(professorSelecionado?.id || "")
     const [ni, setNi] = useState(professorSelecionado?.ni || "")
@@ -26,10 +25,11 @@ const ModalProfessores = ({
     const [message, setMessage] = useState('')
     const fotoRef = useRef(null)
     const token = localStorage.getItem('token')
-    const { width, height } = useWindowSize()
+    const [sizeImage, setSizeImage] = useState(0)
 
     useEffect(() => {
         if (professorSelecionado) {
+            console.log("Prof Select: ", professorSelecionado)
             setId(professorSelecionado.id)
             setNi(professorSelecionado.ni || '')
             setNome(professorSelecionado.nome || '')
@@ -110,7 +110,7 @@ const ModalProfessores = ({
             const fileName = professorSelecionado.foto.split("/").pop()
             deleteFile(fileName)
         }
-        const file = e.target.file[0]
+        const file = e.target.files[0] //Faltou o "s" em files
 
         if (!file) return
 
@@ -118,12 +118,12 @@ const ModalProfessores = ({
 
         const reader = new FileReader()
         reader.onloadend = () => {
-            setPreview("preview: ", file)
-        }
+            setPreview(reader.result);
+        };
 
         reader.readAsDataURL(file)
         console.log("Preview XXX: ", file);
-
+        setSizeImage(-150)
 
     }
 
@@ -174,87 +174,101 @@ const ModalProfessores = ({
     }
 
     return (
-        <div className="container_modal">
-
-            <div className="head_modal">
-                <button className="close_button" onClick={onClose}>X</button>
+        <div className="container_modal_t">
+            <div className="head_modal_t">
+                <button className="close_button_t" onClick={onClose}>X</button>
             </div>
-                <div className="caixa1_t">
-                    <h2>{professorSelecionado ? "Editar" : "Cadastrar"}</h2>
-                    <input
-                        className="ni_modal"
-                        placeholder="NI"
-                        type="text"
-                        value={ni}
-                        onChange={(e) => setNi(e.target.value)}
-                    />
-                    <input
-                        className="nome_modal"
-                        placeholder="Nome"
-                        type="text"
-                        value={nome}
-                        onChange={(e) => setNome(e.target.value)}
-                    />
-                    <input
-                        className="email_modal"
-                        placeholder="email"
-                        type="text"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                    />
-                    <input
-                        className="cel_modal"
-                        placeholder="Celular"
-                        type="text"
-                        value={cel}
-                        onChange={(e) => setCel(e.target.value)}
-                    />
-                    <input
-                        className="ocup_modal"
-                        placeholder="Ocupação"
-                        type="text"
-                        value={ocup}
-                        onChange={(e) => setOcup(e.target.value)}
-                    />
-                </div>
-                <div
-                    className="image1"
-                    
-                >
-                    <img
-                        src={`http://127.0.0.1:8000/api/fotos/${ni}_${nome.split(" ")[0]}.png`}
-                    />
-                </div>
-                <div
-                    className="image2"
-                >
-                    <form onSubmit={handleSubmit}>
-                        {preview && <img src={preview} alt="Preview" className="preview" />}
-                        <input
-                            type="file"
-                            accept="image/*"
-                            onChange={handleFileChange}
-                            className="fileInput"
-                            
+            <div className="caixa1_t">
+                <h2>{professorSelecionado ? "Editar" : "Cadastrar"}</h2>
+                <input
+                    className="campo_t"
+                    placeholder="NI"
+                    type="text"
+                    value={ni}
+                    onChange={(e) => setNi(e.target.value)}
+                />
+                <input
+                    className="campo_t"
+                    placeholder="Nome"
+                    type="text"
+                    value={nome}
+                    onChange={(e) => setNome(e.target.value)}
+                />
+                <input
+                    className="campo_t"
+                    placeholder="email"
+                    type="text"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                />
+                <input
+                    className="campo_t"
+                    placeholder="Celular"
+                    type="text"
+                    value={cel}
+                    onChange={(e) => setCel(e.target.value)}
+                />
+                <input
+                    className="campo_t"
+                    placeholder="Ocupação"
+                    type="text"
+                    value={ocup}
+                    onChange={(e) => setOcup(e.target.value)}
+                />
+            </div>
+            
+            <div
+                className="image_t"
+
+            >
+                {/* <img
+                    src={`http://127.0.0.1:8000/api/fotos/${ni}_${nome.split(" ")[0]}.png`}
+                /> */}
+            </div>
+            <div
+                className="image_t"
+            >
+                {
+                    professorSelecionado ?
+                        <img
+                            src={`http://127.0.0.1:8000/api/fotos/${ni}_${nome.split(" ")[0]}.png`}
                         />
+                        :
 
-                        <button
-                            type="submit"
-                            className="button_save"
-                            style={{
-                                top: `530px`,
-                                left: `400px`
-                            }}
-                            onClick={(e) => {
-                                e.preventDefault()
-                                professorSelecionado ? editTeacher(professorSelecionado.id) : handleSubmit(e)
-                            }}
+                        <form onSubmit={handleSubmit}>
+                            {preview && <img src={preview} alt="Preview" />}
+                            <input
+                                type="file"
+                                accept="image/*"
+                                onChange={handleFileChange}
+                                style={{
+                                    position: 'relative',
+                                    top: `${sizeImage + 150}px`,
+                                    width: '150px',
+                                    height: '50px',
+                                    color: 'transparent',
+                                }}
+                            />
 
-                        >
-                            {professorSelecionado ? "Editar" : "Salvar"}
-                        </button>
-                    </form>
-                </div>
+                        </form>
+                }
+                <button
+                    type="submit"
+                    style={{
+                        position: 'relative',
+                        top: `${sizeImage + 250}px`,
+                        left: '-130px',
+                        width: '150px',
+                        height: '50px',
+                    }}
+                    onClick={(e) => {
+                        e.preventDefault()
+                        professorSelecionado ? editTeacher(professorSelecionado.id) : handleSubmit(e)
+                    }}
+                >
+                    {professorSelecionado ? "Editar" : "Salvar"}
+                </button>
+            </div>
         </div>
     )
 

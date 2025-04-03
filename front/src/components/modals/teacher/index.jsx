@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
-import './styles.css'
-import { AwardIcon } from "lucide-react";
-import axios from "axios";
 import useWindowSize from "../../functions/useWindowSize";
+import axios from "axios";
+import './styles.css'
 
 const ModalProfessores = ({
     isOpen,
@@ -175,85 +174,87 @@ const ModalProfessores = ({
     }
 
     return (
-        <div className="container_container">
-            <div className="container_modal">
-                <div className="head_modal">
-                    <button className="close_button" onClick={onClose}>X</button>
-                </div>
-                <div className="body_modal">
-                    <div className="caixa1">
-                        <h2>{professorSelecionado ? "Editar" : "Cadastrar"}</h2>
-                        <input
-                            className="ni_modal"
-                            placeholder="NI"
-                            type="text"
-                            value={ni}
-                            onChange={(e) => setNi(e.target.value)}
-                        />
-                        <input
-                            className="nome_modal"
-                            placeholder="Nome"
-                            type="text"
-                            value={nome}
-                            onChange={(e) => setNome(e.target.value)}
-                        />
-                        <input
-                            className="email_modal"
-                            placeholder="email"
-                            type="text"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                        />
-                        <input
-                            className="cel_modal"
-                            placeholder="Celular"
-                            type="text"
-                            value={cel}
-                            onChange={(e) => setCel(e.target.value)}
-                        />
-                        <input
-                            className="ocup_modal"
-                            placeholder="Ocupação"
-                            type="text"
-                            value={ocup}
-                            onChange={(e) => setOcup(e.target.value)}
-                        />
-                    </div>
-                    <div className="image1">
-                        <img
-                            src={`http://127.0.0.1:8000/api/fotos/${ni}_${nome.split(" ")[0]}.png`}
-                        />
-                    </div>
-                    <div
-                        className="image2"
-                        style={{
-                            top: `${height/2}`,
-                            width: `${width/2}`
-                        }}
-                    >
-                        <form onSubmit={handleSubmit}>
-                            {preview && <img src={preview} alt="Preview" className="preview" />}
-                            <input type="file" accept="image/*" onChange={handleFileChange} className="fileInput" />
+        <div className="container_modal">
 
-                            <button
-                                type="submit"
-                                className="button_save"
-                                style={{
-                                    top: `${(height+200)/2}px`,
-                                    left: `${(width)/3}px`
-                                }}
-                                onClick={(e) => {
-                                    e.preventDefault()
-                                    professorSelecionado ? editTeacher(professorSelecionado.id) : handleSubmit(e)
-                                }}
-
-                            >
-                                {professorSelecionado ? "Editar" : "Salvar"}
-                            </button>
-                        </form>
-                    </div>
-                </div>
+            <div className="head_modal">
+                <button className="close_button" onClick={onClose}>X</button>
             </div>
+                <div className="caixa1_t">
+                    <h2>{professorSelecionado ? "Editar" : "Cadastrar"}</h2>
+                    <input
+                        className="ni_modal"
+                        placeholder="NI"
+                        type="text"
+                        value={ni}
+                        onChange={(e) => setNi(e.target.value)}
+                    />
+                    <input
+                        className="nome_modal"
+                        placeholder="Nome"
+                        type="text"
+                        value={nome}
+                        onChange={(e) => setNome(e.target.value)}
+                    />
+                    <input
+                        className="email_modal"
+                        placeholder="email"
+                        type="text"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
+                    <input
+                        className="cel_modal"
+                        placeholder="Celular"
+                        type="text"
+                        value={cel}
+                        onChange={(e) => setCel(e.target.value)}
+                    />
+                    <input
+                        className="ocup_modal"
+                        placeholder="Ocupação"
+                        type="text"
+                        value={ocup}
+                        onChange={(e) => setOcup(e.target.value)}
+                    />
+                </div>
+                <div
+                    className="image1"
+                    
+                >
+                    <img
+                        src={`http://127.0.0.1:8000/api/fotos/${ni}_${nome.split(" ")[0]}.png`}
+                    />
+                </div>
+                <div
+                    className="image2"
+                >
+                    <form onSubmit={handleSubmit}>
+                        {preview && <img src={preview} alt="Preview" className="preview" />}
+                        <input
+                            type="file"
+                            accept="image/*"
+                            onChange={handleFileChange}
+                            className="fileInput"
+                            
+                        />
+
+                        <button
+                            type="submit"
+                            className="button_save"
+                            style={{
+                                top: `530px`,
+                                left: `400px`
+                            }}
+                            onClick={(e) => {
+                                e.preventDefault()
+                                professorSelecionado ? editTeacher(professorSelecionado.id) : handleSubmit(e)
+                            }}
+
+                        >
+                            {professorSelecionado ? "Editar" : "Salvar"}
+                        </button>
+                    </form>
+                </div>
         </div>
     )
 

@@ -14,8 +14,9 @@ export default function Teacher() {
     const [setar, setSetar] = useState(false)
 
     useEffect(() => {
-        if (!token) return;
 
+
+        if (!token) return;
         const fetchData = async () => {
             try {
                 const response = await axios.get('http://127.0.0.1:8000/api/professores',
@@ -25,7 +26,7 @@ export default function Teacher() {
                         }
                     }
                 )
-                console.log(response.data)
+                
                 setDados(response.data)
 
             } catch (error) {
@@ -33,7 +34,7 @@ export default function Teacher() {
             }
         }
         fetchData()
-    }, [setar])
+    }, [modalOpen])
 
     const editar = (professor) => {
         console.log(professor)
@@ -42,7 +43,6 @@ export default function Teacher() {
     }
 
     const criar = async (novoProfessor) => {
-
         try {
             const response = await axios.post('http://127.0.0.1:8000/api/professores',
                 {
@@ -93,7 +93,7 @@ export default function Teacher() {
                 <div className="table-teacher">
                     <h2>Lista de professores</h2>
                     {dados.map((professor) => (
-                        <div className="lista">
+                        <div className="lista" key={professor.id || index}>
                             <div className="col1">
                                 <FaEdit className="edit" onClick={() => editar(professor)} />
                             </div>
@@ -144,9 +144,7 @@ export default function Teacher() {
                 <ModalProfessores
                     isOpen={modalOpen}
                     onClose={() => setModalOpen(false)}
-                    professorSelecionado={professorSelecionado}
-                    setSetar={setSetar}
-                    setar={setar}
+                    professorSelecionado={professorSelecionado} // 🔹 Evita undefined
                 />
             </section>
             <Footer />

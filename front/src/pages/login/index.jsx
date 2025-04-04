@@ -10,8 +10,7 @@ export default function Login() {
     const navigate = useNavigate()
 
     const logar = async () => {
-        console.log("Usuário: ", user)
-        console.log("Senha: ", password)
+    
 
         try {
             const response = await axios.post('http://127.0.0.1:8000/api/token/',
@@ -20,7 +19,7 @@ export default function Login() {
                     password: password
                 }
             )
-            console.log("Token Login", response.data.access)
+            
             localStorage.setItem('token', response.data.access)
             navigate('/teacher')
         } catch (error) {

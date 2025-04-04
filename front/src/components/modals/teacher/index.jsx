@@ -6,8 +6,6 @@ const ModalProfessores = ({
     isOpen,
     onClose,
     professorSelecionado,
-    setSetar,
-    setar
 }) => {
     if (!isOpen) return null
 
@@ -28,8 +26,9 @@ const ModalProfessores = ({
     const [sizeImage, setSizeImage] = useState(0)
 
     useEffect(() => {
+        if (!isOpen) return null;  // 🔹 Evita renderização desnecessária
+
         if (professorSelecionado) {
-            console.log("Prof Select: ", professorSelecionado)
             setId(professorSelecionado.id)
             setNi(professorSelecionado.ni || '')
             setNome(professorSelecionado.nome || '')
@@ -37,8 +36,8 @@ const ModalProfessores = ({
             setCel(professorSelecionado.cel || '')
             setOcup(professorSelecionado.ocup || '')
             setFoto(professorSelecionado.foto || "")
-            // Capturar Foto
-
+            setPreview(`http://127.0.0.1:8000/api${professorSelecionado.foto}`)
+            console.log("Foto: ", `http://127.0.0.1:8000/api${professorSelecionado.foto}`);
         } else {
             setId('')
             setNi('')
@@ -47,6 +46,7 @@ const ModalProfessores = ({
             setCel('')
             setOcup('')
             setFoto('')
+            setPreview("http://127.0.0.1:8000/api/media/fotos/default.png")
         }
     }, [professorSelecionado])
 
@@ -62,7 +62,7 @@ const ModalProfessores = ({
         console.log("Extensão: ", fileExtension);
         const newNameFile = `${ni}_${nome.split(" ")[0]}.${fileExtension}`
         console.log("Nome do arquivo: ", newNameFile);
-        
+
         const nameFile = new File([fotoRef.current], newNameFile, { type: fotoRef.current.type })
 
         const formData = new FormData()
@@ -126,7 +126,6 @@ const ModalProfessores = ({
 
         reader.readAsDataURL(file)
         console.log("Preview XXX: ", file);
-        setSizeImage(-170)
 
     }
 
@@ -146,7 +145,6 @@ const ModalProfessores = ({
             }
             )
             console.log("Dados inseridos com sucesso...")
-            setSetar(!setar)
             onClose(false)
         } catch (error) {
 
@@ -169,7 +167,6 @@ const ModalProfessores = ({
             }
             )
             console.log("Dados atualizados com sucesso...")
-            setSetar(!setar)
             onClose(false)
         } catch (error) {
 
@@ -229,43 +226,24 @@ const ModalProfessores = ({
 
                 <div
                     className="image_t"
-
                 >
-                    {/* <img
-                    src={`http://127.0.0.1:8000/api/fotos/${ni}_${nome.split(" ")[0]}.png`}
-                /> */}
-                </div>
-                <div
-                    className="image_t"
-                >
-                    {
-                        professorSelecionado ?
-                            <img
-                                src={`http://127.0.0.1:8000/api/fotos/${ni}_${nome.split(" ")[0]}.png`}
-                            />
-                            :
-
-                            <form onSubmit={handleSubmit}>
-                                {preview && <img src={preview} alt="Preview" />}
-                                <input
-                                    type="file"
-                                    accept="image/*"
-                                    onChange={handleFileChange}
-                                    style={{
-                                        position: 'relative',
-                                        top: `${sizeImage + 160}px`,
-                                        width: '150px',
-                                        height: '50px',
-                                        color: 'transparent',
-                                    }}
-                                />
-
-                            </form>
-                    }
+                    {preview && <img src={preview} alt="Preview" />}
+                    <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleFileChange}
+                        style={{
+                            position: 'relative',
+                            top: '0px',
+                            width: '150px',
+                            height: '50px',
+                            color: 'transparent',
+                        }}
+                    />
                     <div className="msg_t"
                         style={{
                             position: 'relative',
-                            top: `${sizeImage + 220}px`,
+                            top: '70px',
                             left: '-160px',
                             width: '550px',
                             height: '25px',
@@ -276,7 +254,7 @@ const ModalProfessores = ({
                         type="submit"
                         style={{
                             position: 'relative',
-                            top: `${sizeImage + 240}px`,
+                            top: '80px',
                             left: '-160px',
                             width: '150px',
                             height: '50px',

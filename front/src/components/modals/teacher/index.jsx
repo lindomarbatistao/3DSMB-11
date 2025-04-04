@@ -53,13 +53,16 @@ const ModalProfessores = ({
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        if (!ni || !nome || !email || !cel || !ocup) {
+        if (!ni || !nome || !email || !cel || !ocup || !(fotoRef.current instanceof File)) {
             setMessage("Preencha todos os campos!")
             return
         }
 
         const fileExtension = fotoRef.current.name.split(".").pop()
-        const newNameFile = `${ni}_${nome.split(" ")[0]}.${fileExtension}}`
+        console.log("Extensão: ", fileExtension);
+        const newNameFile = `${ni}_${nome.split(" ")[0]}.${fileExtension}`
+        console.log("Nome do arquivo: ", newNameFile);
+        
         const nameFile = new File([fotoRef.current], newNameFile, { type: fotoRef.current.type })
 
         const formData = new FormData()
@@ -75,8 +78,8 @@ const ModalProfessores = ({
                 formData,
                 {
                     headers: {
+                        "Content-Type": "multipart/form-data",
                         Authorization: `Bearer ${token}`,
-                        "Content-Type": "multipart/form-data"
                     }
                 }
             )
@@ -123,7 +126,7 @@ const ModalProfessores = ({
 
         reader.readAsDataURL(file)
         console.log("Preview XXX: ", file);
-        setSizeImage(-150)
+        setSizeImage(-170)
 
     }
 
@@ -174,100 +177,119 @@ const ModalProfessores = ({
     }
 
     return (
-        <div className="container_modal_t">
-            <div className="head_modal_t">
-                <button className="close_button_t" onClick={onClose}>X</button>
-            </div>
-            <div className="caixa1_t">
-                <h2>{professorSelecionado ? "Editar" : "Cadastrar"}</h2>
-                <input
-                    className="campo_t"
-                    placeholder="NI"
-                    type="text"
-                    value={ni}
-                    onChange={(e) => setNi(e.target.value)}
-                />
-                <input
-                    className="campo_t"
-                    placeholder="Nome"
-                    type="text"
-                    value={nome}
-                    onChange={(e) => setNome(e.target.value)}
-                />
-                <input
-                    className="campo_t"
-                    placeholder="email"
-                    type="text"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
-                <input
-                    className="campo_t"
-                    placeholder="Celular"
-                    type="text"
-                    value={cel}
-                    onChange={(e) => setCel(e.target.value)}
-                />
-                <input
-                    className="campo_t"
-                    placeholder="Ocupação"
-                    type="text"
-                    value={ocup}
-                    onChange={(e) => setOcup(e.target.value)}
-                />
-            </div>
-            
-            <div
-                className="image_t"
+        <div className="modal-overlay">
+            <div className="container_modal_t">
+                <div className="head_modal_t">
+                    <button className="close_button_t" onClick={onClose}>X</button>
+                </div>
+                <div className="body_modal_t">
+                    <div className="caixa1_t">
+                        <h2>{professorSelecionado ? "Editar" : "Cadastrar"}</h2>
+                        <input
+                            className="campo_t"
+                            placeholder="NI"
+                            type="text"
+                            value={ni}
+                            onChange={(e) => setNi(e.target.value)}
+                        />
+                        <input
+                            className="campo_t"
+                            placeholder="Nome"
+                            type="text"
+                            value={nome}
+                            onChange={(e) => setNome(e.target.value)}
+                        />
+                        <input
+                            className="campo_t"
+                            placeholder="email"
+                            type="text"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
+                        <input
+                            className="campo_t"
+                            placeholder="Celular"
+                            type="text"
+                            value={cel}
+                            onChange={(e) => setCel(e.target.value)}
+                        />
+                        <input
+                            className="campo_t"
+                            placeholder="Ocupação"
+                            type="text"
+                            value={ocup}
+                            onChange={(e) => setOcup(e.target.value)}
+                        />
+                    </div>
+                    <div className="foto">
+                        Foto
+                    </div>
 
-            >
-                {/* <img
+                </div>
+
+                <div
+                    className="image_t"
+
+                >
+                    {/* <img
                     src={`http://127.0.0.1:8000/api/fotos/${ni}_${nome.split(" ")[0]}.png`}
                 /> */}
-            </div>
-            <div
-                className="image_t"
-            >
-                {
-                    professorSelecionado ?
-                        <img
-                            src={`http://127.0.0.1:8000/api/fotos/${ni}_${nome.split(" ")[0]}.png`}
-                        />
-                        :
-
-                        <form onSubmit={handleSubmit}>
-                            {preview && <img src={preview} alt="Preview" />}
-                            <input
-                                type="file"
-                                accept="image/*"
-                                onChange={handleFileChange}
-                                style={{
-                                    position: 'relative',
-                                    top: `${sizeImage + 150}px`,
-                                    width: '150px',
-                                    height: '50px',
-                                    color: 'transparent',
-                                }}
-                            />
-
-                        </form>
-                }
-                <button
-                    type="submit"
-                    style={{
-                        position: 'relative',
-                        top: `${sizeImage + 250}px`,
-                        left: '-130px',
-                        width: '150px',
-                        height: '50px',
-                    }}
-                    onClick={(e) => {
-                        e.preventDefault()
-                        professorSelecionado ? editTeacher(professorSelecionado.id) : handleSubmit(e)
-                    }}
+                </div>
+                <div
+                    className="image_t"
                 >
-                    {professorSelecionado ? "Editar" : "Salvar"}
-                </button>
+                    {
+                        professorSelecionado ?
+                            <img
+                                src={`http://127.0.0.1:8000/api/fotos/${ni}_${nome.split(" ")[0]}.png`}
+                            />
+                            :
+
+                            <form onSubmit={handleSubmit}>
+                                {preview && <img src={preview} alt="Preview" />}
+                                <input
+                                    type="file"
+                                    accept="image/*"
+                                    onChange={handleFileChange}
+                                    style={{
+                                        position: 'relative',
+                                        top: `${sizeImage + 160}px`,
+                                        width: '150px',
+                                        height: '50px',
+                                        color: 'transparent',
+                                    }}
+                                />
+
+                            </form>
+                    }
+                    <div className="msg_t"
+                        style={{
+                            position: 'relative',
+                            top: `${sizeImage + 220}px`,
+                            left: '-160px',
+                            width: '550px',
+                            height: '25px',
+                        }}>
+                        {message}
+                    </div>
+                    <button
+                        type="submit"
+                        style={{
+                            position: 'relative',
+                            top: `${sizeImage + 240}px`,
+                            left: '-160px',
+                            width: '150px',
+                            height: '50px',
+                        }}
+                        onClick={(e) => {
+                            e.preventDefault()
+                            professorSelecionado ? editTeacher(professorSelecionado.id) : handleSubmit(e)
+                        }}
+                    >
+                        {professorSelecionado ? "Editar" : "Salvar"}
+                    </button>
+                </div>
+
             </div>
         </div>
     )

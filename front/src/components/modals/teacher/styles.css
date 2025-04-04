@@ -1,23 +1,39 @@
 .container_modal_t{
     display: flex;
+    position: fixed; /* Garante que o modal fique fixo na tela */
+    top: 50%; /* Centraliza verticalmente */
+    left: 50%; /* Centraliza horizontalmente */
+    transform: translate(-50%, -50%); /* Ajusta a posição exata */
     flex-direction: column;
     width: 550px;
     height: 80%;
-    background-color:rgb(116, 187, 169);
+    background-color:rgb(112, 161, 149);
     border-color: black;
     align-items: start;
     justify-content: flex-start;
     box-shadow: 5px 5px 10px gray;
     border-radius: 5px;
     overflow: visible;
+    z-index: 1000; /* Garante que o modal fique sobre os outros elementos */
 }
 
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5); /* Fundo semi-transparente */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999; /* Certifica que fique abaixo do modal */
+}
 
 .head_modal_t{
     display: flex;
     width: 100%;
     height: 100px;
-    background-color: aqua;
     justify-content: end;
 }
 
@@ -25,7 +41,6 @@
     display: flex;
     flex-direction: column;
     width: 60%;
-    background-color: rgb(17, 160, 72);
     margin-left: 10px;
 }
 
@@ -86,15 +101,15 @@
 .close_button_t{
     top: 10px;
     right: 10px;
-    background-color: rgb(160, 160, 160);
-    font-size: 12px;
+    background-color: rgb(112, 161, 149);
+    font-size: 15px;
     font-weight: bold;
     color: #000000;
     transition: color 0.3s ease;
 }
 
 .close_button_t:hover{
-    background-color: black;
+    background-color: rgb(58, 115, 117);
     color: aliceblue;
 }
 
@@ -111,5 +126,32 @@
     top: 250px;
     left: -150px;
     position: relative;
+}
+
+.body_modal_t{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.foto{
+    display: flex;
+    width: 180px;
+    height: 180px;
+    background-color: rgb(214, 248, 242);
+    margin-top: 80px;
+    margin-left: 20px;
+    align-items: center;
+    justify-content: center;
+    color: rgb(135, 138, 138);
+}
+
+.msg_t{
+    display: flex;
+    width: 100%;
+    margin-left: -200px;
+    align-items: center;
+    justify-content: center;
+    color: rgba(112, 8, 8, 0.527);
 }
 
